@@ -1,18 +1,47 @@
 var apiKey = "fadb52158e68d557c1650cb082bd3f44";
 var citySubmit = $("#city-submit");
+var currentDay = $('.current-day');
+var tableBody = $("#weather-data-body");
+var cityButtons = $('.city-buttons');
+
 citySubmit.click(function () {
   var city = $("#city").val();
+  callApi(city);
+  var button = $("<button class='city-button'>");
+  button.text(city);
+  cityButtons.append(button);
+  addButtons();
+});
+
+function addButtons() {
+  var cityButton = $('.city-button');
+  console.log(cityButton);
+  cityButton.each(function() {
+  $(this).click(() =>{ 
+    console.log('yee');
+    city = $(this).text();
+    callApi(city);
+  })
+   
+  })
+}
+function callApi(city) {
   var queryURL = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
   $.ajax({
     url: queryURL,
     method: "GET",
+    error: function(xhr, status, error) {
+      if(xhr.status == 404){
+          $("body").append("<p>Sorry, the city you requested could not be found.</p>");
+      }
+  }
   }).then(function (res) {
-    console.log(res)
+    tableBody.empty();
     currentDayDataIn(res);
     checkCurrentStacs(res);
+    currentDay.addClass('active');
   });
-});
-
+}
 //checks the current time to actualize the current day screen
 function checkCurrentStacs(res) {
    var currentTime = moment().format('H');
@@ -73,7 +102,6 @@ function checkCurrentStacs(res) {
    date.text(actualDate);
 }
 function currentDayDataIn(res) {
-  var tableBody = $("#weather-data-body");
   var count = 00;
   var row = $('<tr>'); 
   var timeCell = $("<td>");
@@ -112,27 +140,28 @@ function currentDayDataIn(res) {
   }
 }
 
+//crear las cards
+//crear un sistema de iconos para segun el tipo de tiepo y hacer su inner.
+//crear el modal de entrada
+//controlar el error
+//controlar el scroll en la seccion search para que esta no sea infinita
+//Ir a los pequeños detalles
+  //la tabla ponerla en flex
+  //las stacts en bold y los numeros en normal
+  //font size, colors ...
 
 
 //ciudad registrada
-//se crea un boton
+//**se crea un boton
+//*se almacenan en local storage keys para los botones como ciudad nombre */
 
-//se llama a la api
- //- city name and country
-  //comprueba que hora es, dependiendo de la hora trae:
-  /* -temperatura
-     - humedad
-     - wind speed
-     - sctual time and day*/
-
-
-
+//Controlamos el error --> un parrafo en rojo debajo del input que diga no se encuentra esa ciudad y bloqueas el display;
 
 //main section ->
 //header
-  //icon -> the icon needs to be related with the hourly check. Then checks the temperature and if is bigger/smaller than, then display corresponding icon.
+  //**icon -> the icon needs to be related with the hourly check. Then checks the temperature and if is bigger/smaller than, then display corresponding icon.
   //temp --> actual temp depending in hour interval
-  //C or F - swiper --> switcher btn that changes de values to Farengeit
+  //**C or F - swiper --> switcher btn that changes de values to Farengeit
 
   //Precipitations, humidity wind //Passing actual values depending on de hour
 
@@ -142,7 +171,7 @@ function currentDayDataIn(res) {
 //Temperatures table
   //Hour and temperature --> hours 3 by 3 with respective temp
 
-//Following days table
+//**Following days table
   //Icon of weather --> sacar temperatura promedio y display icon
   //Date --> for each day of the 4 days
   //Max and Min Temp
