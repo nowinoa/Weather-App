@@ -1,0 +1,11 @@
+.temperature {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.main-cd {
+    display: flex;
+    gap: 15px;
+}
