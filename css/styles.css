@@ -84,26 +84,30 @@ main .current-day {
     font-size: 16px;
 }
 .main-cd-temperatures {
+    border-radius: 5px;
     color: #222;
     background-color: #fff;
     display: flex;
-    font-size: 20px;
-    max-width: 60%;
-    padding: 0px 20px 0px 20px;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 15px;
+    max-width: 80%;
+    padding: 20px;
     margin: 0 auto;
 }
 .temperature {
+    padding: 10px;
     width: 100%;
+    border-right: 1px solid rgb(177, 177, 177);
+}
+.temperature:last-child { 
+    border: none;
 }
 .temperature p {
     text-align: center;
 }
 .count {
-    background-color: rgb(187, 187, 187);
-    color: #222;
-    border-radius: 5px;
-    padding: 3px;
-    width: 80%;
+    font-weight: 700;
 }
 .forecast {
     display: flex;
@@ -117,6 +121,37 @@ main .current-day {
     color: #fff;
     font-size: 1.5rem;
     
+}
+#weather-data {
+    width: 100%;
+}
+tr .weather-tr {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+thead {
+    font-size: 1.2rem;
+}
+.weather-tr th {
+    text-align: center;
+    border-bottom: 1px solid rgb(158, 156, 156);
+    padding: 10px 0px 10px 0px;
+}
+th span {
+    font-size: 10px;
+}
+tbody {
+    margin-top: 50px;
+    padding: 20px;
+}
+tbody tr td {
+    text-align: center;
+}
+tbody tr td:first-child {
+    font-weight: 700;
 }
 .card {
     width: 20%;

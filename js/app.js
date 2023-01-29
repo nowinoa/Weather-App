@@ -72,29 +72,55 @@ function checkCurrentStacs(res) {
    //Inners the current day and time
    date.text(actualDate);
 }
-function currentDayDataIn(res) { 
-  var temperatures = $(".main-cd-temperatures");
+function currentDayDataIn(res) {
+  var tableBody = $("#weather-data-body");
   var count = 00;
+  var row = $('<tr>'); 
+  var timeCell = $("<td>");
+  var temperatureCell = $("<td>");
+  var windSpeedCell = $("<td>");
+  var humidityCell = $("<td>");
   for (i = 0; i < 8; i++) {
       var temp = res.list[i].main.temp;
       temp -= 273.15;
-      if(count < 10) {
-        var tempE = $(`<div class='temperature'><p class='count' >0${count}:00</p><p>${Math.round(temp)}</p></div>`);
-      } else {
-        var tempE = $(`<div class='temperature'><p class='count'>${count}:00</p><p>${Math.round(temp)}</p></div>`);
-      }
-      
-      temperatures.append(tempE);
+       if(count < 10) {
+        var time = '0' + count + ':00'
+        var tempt = Math.round(temp) + 'Cº';
+        var wind = res.list[i].main.humidity + 'm/s';
+        var humidity = res.list[i].wind.speed + '%';
+        timeCell.append($('<p>').text(time));
+        temperatureCell.append($('<p>').text(tempt));
+        windSpeedCell.append($('<p>').text(wind));
+        humidityCell.append($('<p>').text(humidity));
+       } else {
+        var time = count + ':00'
+        var tempt = Math.round(temp) + 'Cº';
+        var wind = res.list[i].main.humidity + 'm/s';
+        var humidity = res.list[i].wind.speed + '%';
+        timeCell.append($('<p>').text(time));
+        temperatureCell.append($('<p>').text(tempt));
+        windSpeedCell.append($('<p>').text(wind));
+        humidityCell.append($('<p>').text(humidity));
+       }
+       row.append(timeCell);
+       row.append(temperatureCell);
+       row.append(windSpeedCell);
+       row.append(humidityCell);
+       tableBody.append(row);
+      // temperatures.append(tempE);
       count +=3;
   }
 }
+
+
+
 //ciudad registrada
 //se crea un boton
 
 //se llama a la api
  //- city name and country
   //comprueba que hora es, dependiendo de la hora trae:
-  /* -temperatura 
+  /* -temperatura
      - humedad
      - wind speed
      - sctual time and day*/
@@ -108,7 +134,7 @@ function currentDayDataIn(res) {
   //temp --> actual temp depending in hour interval
   //C or F - swiper --> switcher btn that changes de values to Farengeit
 
-  //Precipitations, humidity wind //Passing actual values depending on de hour 
+  //Precipitations, humidity wind //Passing actual values depending on de hour
 
   //City and Country
   //Date and real hour
@@ -120,7 +146,7 @@ function currentDayDataIn(res) {
   //Icon of weather --> sacar temperatura promedio y display icon
   //Date --> for each day of the 4 days
   //Max and Min Temp
-  //Wind 
+  //Wind
   //Humidity
 
 
