@@ -57,13 +57,26 @@ main {
     justify-content: center;
 }
 main .current-day {
+    border-radius: 5px;
     background-color: #222;
     width: 80%;
+    height: 700px;
     margin: 20px auto;
+    margin-top: 200px;
     padding: 20px;
     color: #fff;
     font-size: 1.8rem;
+    opacity: 0;
+    
 }
+.active {
+    opacity: 1 !important;
+}
+/* .active {
+    margin: 30px 20px 30px 20px;
+    height: 1000px;
+    padding: 20px;
+} */
 .header-cd {
     display: flex;
     justify-content: space-around;
@@ -93,7 +106,7 @@ main .current-day {
     font-size: 15px;
     max-width: 80%;
     padding: 20px;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 .temperature {
     padding: 10px;
