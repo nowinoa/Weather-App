@@ -1,4 +1,13 @@
-
+.error {
+    display: none;
+    color: red;
+}
+.no-hidden {
+    display: block;
+}
+.hidden {
+    display: none;
+}
 
 body {
     display: flex;
@@ -34,7 +43,7 @@ aside {
 }
 .city-buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     margin-top: 20px;
     gap: 20px;
     padding-top: 20px;

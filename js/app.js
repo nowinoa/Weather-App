@@ -3,27 +3,43 @@ var citySubmit = $("#city-submit");
 var currentDay = $('.current-day');
 var tableBody = $("#weather-data-body");
 var cityButtons = $('.city-buttons');
+var forecast = $('.forecast');
+var error404 = document.querySelector('.error');
+var buttons = 0;
 
+window.onload = function(){
+  window.localStorage.clear();
+}
 citySubmit.click(function () {
+  $('#start').addClass('hidden');
   var city = $("#city").val();
-  callApi(city);
-  var button = $("<button class='city-button'>");
-  button.text(city);
-  cityButtons.append(button);
-  addButtons();
-});
-
-function addButtons() {
-  var cityButton = $('.city-button');
-  console.log(cityButton);
-  cityButton.each(function() {
-  $(this).click(() =>{ 
-    console.log('yee');
-    city = $(this).text();
+  if(city === '') {
+    console.log('manito error');
+    error404.classList.add('no-hidden');
+  } else {
+    error404.classList.remove('no-hidden');
     callApi(city);
-  })
-   
-  })
+  }
+});
+function onClickCityButtons() {
+  var cityButton = $('.city-button');
+   cityButton.each(function() {
+   $(this).click(() =>{ 
+     console.log('yee');
+     city = $(this).text();
+     var res = window.localStorage.getItem(`res-${city}`);
+     var resp = JSON.parse(res);
+     innerData(resp);
+   })
+   })
+}
+function limitCityButtons () {
+  console.log(buttons);
+    if(buttons > 6) {
+      var city = cityButtons.find('button:first').text();
+      window.localStorage.removeItem(`res-${city}`);
+      cityButtons.find('button:first').remove();
+    }
 }
 function callApi(city) {
   var queryURL = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
@@ -32,15 +48,34 @@ function callApi(city) {
     method: "GET",
     error: function(xhr, status, error) {
       if(xhr.status == 404){
-          $("body").append("<p>Sorry, the city you requested could not be found.</p>");
+          error404.classList.add('no-hidden');
       }
   }
   }).then(function (res) {
-    tableBody.empty();
-    currentDayDataIn(res);
-    checkCurrentStacs(res);
-    currentDay.addClass('active');
+    buttons++;
+    var resLocal = JSON.stringify(res);
+    window.localStorage.setItem(`res-${city}`, resLocal);
+    error404.classList.remove('no-hidden');
+    var button = $("<button class='city-button'>");
+    button.text(city);
+    cityButtons.append(button);
+    //si los btn son mas de 8 entonces elimina el primero con child first remove
+    onClickCityButtons();
+    limitCityButtons();
+    innerData(res)
   });
+}
+function innerData(res) {
+  forecast.empty();
+  tableBody.empty();
+  tableCurrentTemp(res);
+  checkCurrentStacs(res);
+  currentDay.addClass('active');
+  var middleValues = [12,20,28,36]
+  for(var j = 0; j < middleValues.length ; j++) {
+    var value = middleValues[j];
+    addCards(res, value);
+  }
 }
 //checks the current time to actualize the current day screen
 function checkCurrentStacs(res) {
@@ -101,7 +136,7 @@ function checkCurrentStacs(res) {
    //Inners the current day and time
    date.text(actualDate);
 }
-function currentDayDataIn(res) {
+function tableCurrentTemp(res) {
   var count = 00;
   var row = $('<tr>'); 
   var timeCell = $("<td>");
@@ -139,12 +174,37 @@ function currentDayDataIn(res) {
       count +=3;
   }
 }
+function addCards (res, value) {
+  //buscar la temperatura mas alta y mas baja ?? - por ahora pon solo una temperatura y pasa a las pantallas y el error
+  var tempMax = res.list[value].main.temp;
+  tempMax -= 273.15;
+  tempMax = Math.round(tempMax);
+  var todayDate = res.list[value].dt_txt;
+  var td = moment(todayDate).format('dddd');
+  var windSp = res.list[value].wind.speed;
+  var humidity = res.list[value].main.humidity;
+  var card = $('<div class="card"></div>');
+  var h4_card = $('<h4>');
+  h4_card.text(td);
+  var icon = $('<i>');
+  var maxMinTempC = $(`<p>${tempMax} Cº </p>`);
+  var windSpeedC = $(`<p>${windSp} m/s</p>`);
+  var humidityC = $(`<p>${humidity} %</p>`);
+  card.append(h4_card);
+  card.append(icon);
+  card.append(maxMinTempC);
+  card.append(windSpeedC);
+  card.append(humidityC);
+  forecast.append(card);
+}
 
-//crear las cards
+//set res to local storage
+//on btn click retrieve res from local storage
+//limit the quantity for btns - removes the oldest value and its response from localStorage.
+
 //crear un sistema de iconos para segun el tipo de tiepo y hacer su inner.
 //crear el modal de entrada
-//controlar el error
-//controlar el scroll en la seccion search para que esta no sea infinita
+//limitar el numero de botones posibles y valores repetidos
 //Ir a los pequeños detalles
   //la tabla ponerla en flex
   //las stacts en bold y los numeros en normal
@@ -152,8 +212,8 @@ function currentDayDataIn(res) {
 
 
 //ciudad registrada
-//**se crea un boton
-//*se almacenan en local storage keys para los botones como ciudad nombre */
+//se crea un boton
+//**se almacenan en local storage keys para los botones como ciudad nombre */
 
 //Controlamos el error --> un parrafo en rojo debajo del input que diga no se encuentra esa ciudad y bloqueas el display;
 
@@ -171,12 +231,12 @@ function currentDayDataIn(res) {
 //Temperatures table
   //Hour and temperature --> hours 3 by 3 with respective temp
 
-//**Following days table
-  //Icon of weather --> sacar temperatura promedio y display icon
+//Following days table
+  //**Icon of weather --> sacar temperatura promedio y display icon
   //Date --> for each day of the 4 days
-  //Max and Min Temp
+  //Temp
   //Wind
   //Humidity
 
 
-
+//Tasks: limitar los botones, iconos para el weather y ya estilizar.
