@@ -51,7 +51,7 @@ function callCurrentDayApi(city) {
 }
 //Calls API for forecast
 function callForecastApi(city) {
-    var queryURL = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+    var queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
     $.ajax({
       url: queryURL,
       method: "GET",
