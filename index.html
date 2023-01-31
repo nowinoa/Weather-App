@@ -13,59 +13,29 @@
 <body>
     <aside>
         <div class="search">
-            <label for="city">Search for city name:</label>
-            <input name="city" type="text" id="city" placeholder="London">
-            <p class="error">Not found</p>
+            <label for="city">Search City:</label>
+            <input type="text" name="city" id="city" placeholder="London">
+            <p class="error hidden">Not found</p>
             <button type="submit" id="city-submit">Submit</button>
         </div>
         <div class="city-buttons">
-            
+
         </div>
     </aside>
-
-    <section id="start">
-        <h1>Weather App</h1>
-    </section>
     <main>
         <div class="current-day">
-            <div class="header-cd">
-                <div class="stacs">
-                    <div class="temp-stacs">
-                        <i class="fa-solid fa-cloud"></i>
-                        <div class="temp-numeric"></div>
-                        <div class="temp-grades"></div>
-                    </div>
-                    <div class="weather-stacs">
-                        <p class="humidity"></p>
-                        <p class="wind-speed"></p>
-                    </div>
-                </div>
-                <div class="city-date">
-                    <p class="city"></p>
-                    <p class="date"></p>
-                </div>
-            </div>
-            <div class="main-cd-temperatures">
-                <table id="weather-data">
-                    <thead>
-                        <tr class="weather-tr">
-                            <th><i class="fa-regular fa-clock"></i></th>
-                            <th><i class="fa-solid fa-temperature-three-quarters"></i><span>(Cº)</span></th>
-                            <th><i class="fa-solid fa-wind"></i><span>(m/s)</span></th>
-                            <th><i class="fa-solid fa-droplet"></i><span>(%)</span></th>
-                        </tr>
-                    </thead>
-                    <tbody id="weather-data-body">
-                    </tbody>
-                </table>                     
-            </div>
+
         </div>
+
         <div class="forecast">
+            <div class="wraper">
                 
+            </div>
         </div>
+
     </main>
-    
-    
+
+
     <script src="
     https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js
     "></script>
