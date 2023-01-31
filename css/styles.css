@@ -11,7 +11,7 @@ body {
 aside {
     background-color: #02152b;
     width: 20%;
-    height: 100vh;
+    height: 120vh;
     padding: 100px 20px 20px 20px;
 }
 .search {
@@ -71,7 +71,7 @@ main {
     gap: 20px;
     width: 100%;
     max-width: 80%;
-    height: 100vh;
+    height: 120vh;
 }
 .current-day {
     display: flex;
