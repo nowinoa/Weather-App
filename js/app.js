@@ -5,8 +5,7 @@ var apiKey = "fadb52158e68d557c1650cb082bd3f44";
 var citySubmit = $("#city-submit");
 var error404 = document.querySelector('.error');
 var forecast = $('.forecast');
-var wraper = $('.wraper');
-
+var wraper = $('<div class="wraper">');
 var buttons = 0;
 
 //On load - cleans the local storage
@@ -144,6 +143,7 @@ function currentDayInner(res) {
 function emptyAllHtml() {
     currentDay.empty();
     forecast.empty();
+    wraper.empty();
 }
 //creates the city buttons
 function addButton(city) {
@@ -198,15 +198,22 @@ function addCards (res, value) {
     var card = $('<div class="card"></div>');
     var h4_card = $('<h4>');
     h4_card.text(td);
-    var icon = $('<div>');
+    var icon = $('<div class="card-icon-wh">');
     var iconcode = res.list[value].weather[0].icon;
     var iconurl = "./img/icons/" + iconcode + ".png";
     icon.append($(`<img src="${iconurl}" class = "weather-icon-tb">`));
     var maxMinTempC = $(`<p>${tempMax} Cº </p>`);
     var windSpeedC = $(`<p>${windSp} m/s</p>`);
     var humidityC = $(`<p>${humidity} %</p>`);
+    //Icons
+    var tempIC = $('<i class="fa-solid card-icon fa-temperature-arrow-up"></i>');
+    var windI = $('<i class="fa-solid card-icon fa-wind"></i>');
+    var humI = $('<i class="fa-solid card-icon fa-droplet"></i>');
     card.append(h4_card);
     card.append(icon);
+    maxMinTempC.prepend(tempIC);
+    windSpeedC.prepend(windI);
+    humidityC.prepend(humI);
     card.append(maxMinTempC);
     card.append(windSpeedC);
     card.append(humidityC);
