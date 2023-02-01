@@ -68,7 +68,7 @@ function callForecastApi(city) {
         }
     }
     }).then(function (res) {
-     error404.classList.add('hidden');
+      error404.classList.add('hidden');
       var resLocal = JSON.stringify(res);
       window.localStorage.setItem(`res-${city}`, resLocal);
       innerForecast(res);
