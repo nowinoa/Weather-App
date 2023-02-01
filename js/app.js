@@ -7,6 +7,7 @@ var error404 = document.querySelector('.error');
 var forecast = $('.forecast');
 var wraper = $('<div class="wraper">');
 var buttons = 0;
+var cities = [];
 
 //On load - cleans the local storage
 window.onload = function(){
@@ -21,7 +22,12 @@ citySubmit.click(function () {
       console.log('manito error');
       //error p visible 
       error404.classList.remove('hidden');
-    } else {
+    } 
+    else if(cities.includes(city)) {
+      error404.textContent = 'Click the city button!';
+      error404.classList.remove('hidden');
+    }
+    else {
      //Hidde error p
       error404.classList.add('hidden');
         emptyAllHtml();
@@ -39,6 +45,7 @@ function callCurrentDayApi(city) {
     error: function(xhr) {
         if(xhr.status == 404){
             error404.classList.remove('hidden');
+            error404.textContent = 'Not found';
         }
     }
     }).then((res) => {
@@ -147,6 +154,8 @@ function emptyAllHtml() {
 }
 //creates the city buttons
 function addButton(city) {
+    cities.push(city);
+    console.log(cities);
     var button = $("<button class='city-button'>");
     button.text(city);
     cityButtons.append(button);
@@ -220,3 +229,8 @@ function addCards (res, value) {
     wraper.append(card)
     forecast.append(wraper);
   }
+
+  //Adjust buttons from search section
+  //movil responsive
+  //time displays current time
+  //box shadow, hover animation, animations
