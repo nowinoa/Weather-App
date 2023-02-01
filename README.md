@@ -10,7 +10,7 @@ The problem that City Weather Tracker solves is the need for a user-friendly and
 
 By building this project, I learned about using APIs to fetch data, using JavaScript and JQuery to manipulate the DOM, and the importance of user experience in web design.
 
-<img src="./img/app-pic.png">
+<img src="./img/app_pic.png" alt="picture about the page">
 
 Click here to go to the page --> https://nowinoa.github.io/Weather-App/
 
