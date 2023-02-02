@@ -21,7 +21,6 @@ citySubmit.click(function () {
   var city = $("#city").val();
   //checks if the city is a empty string
   if (city === "") {
-    console.log("manito error");
     //error p visible
     error404.classList.remove("hidden");
   } else if (cities.includes(city)) {
@@ -34,6 +33,7 @@ citySubmit.click(function () {
     callCurrentDayApi(city);
     callForecastApi(city);
     console.log("yese");
+    $('#city').val('')
   }
 });
 //Calls the API for current day data
